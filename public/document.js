@@ -1,4 +1,4 @@
-import { emitEditorWrite, selectDocument } from "./socket.js"
+import { emitEditorWrite, selectDocument } from "./socket-document.js"
 
 const params = new URLSearchParams(window.location.search)
 const documentName = params.get("name")

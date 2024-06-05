@@ -23,6 +23,11 @@ io.on('connection', (socket) => {
     }
   })
 
+  socket.on('list-documents', async (listDocuments: (documents: Document[]) => void) => {
+    const documents = await documentsMongoCollection.findAll()
+    listDocuments(documents)
+  })
+
   socket.on("disconnect", (reason) => {
     console.log(`Client "${socket.id}" disconnected!
     Reason: ${reason}`)
