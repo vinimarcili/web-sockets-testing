@@ -10,9 +10,10 @@ io.on('connection', (socket) => {
   socket.on('document', async (documentName: string, sendText: (text: string) => void) => {
     socket.join(documentName)
     const document = await documentsMongoCollection.findOne(documentName)
-    if (document) {
-      sendText(document.text)
+    if (!document) {
+      await documentsMongoCollection.updateOne(documentName)
     }
+    sendText(document?.text ?? '')
   })
 
   socket.on('editor', async ({ text, name }: Document) => {
@@ -30,6 +31,10 @@ io.on('connection', (socket) => {
 
   socket.on('create-document', async (documentName: string, sendText: (text: string) => void) => {
     await documentsMongoCollection.updateOne(documentName)
+  })
+
+  socket.on('delete-document', async (documentName: string) => {
+    await documentsMongoCollection.deleteOne(documentName)
   })
 
   socket.on("disconnect", (reason) => {

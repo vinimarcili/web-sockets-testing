@@ -1,4 +1,4 @@
-import { emitEditorWrite, selectDocument } from "./socket-document.js"
+import { emitEditorWrite, selectDocument, emitDeleteDocument } from "./socket-document.js"
 
 const params = new URLSearchParams(window.location.search)
 const documentName = params.get("name")
@@ -12,6 +12,14 @@ editor.addEventListener("keyup", () => {
   emitEditorWrite({
     text: editor.value, name: documentName
   })
+})
+
+const deleteButton = document.querySelector("#delete-document")
+deleteButton.addEventListener("click", () => {
+  if (confirm("Deseja realmente excluir este documento?")) {
+    emitDeleteDocument(documentName)
+    window.location.href = "/index.html"
+  }
 })
 
 function updateEditor(text) {
