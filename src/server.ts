@@ -3,6 +3,9 @@ import * as path from 'path'
 import { fileURLToPath } from 'url'
 import http from 'http'
 import { Server } from 'socket.io'
+import { startDatabse } from './db.js'
+import dotnev from 'dotenv'
+dotnev.config()
 
 const app: Express = express()
 const PORT: number = Number(process.env.PORT) || 4000
@@ -20,4 +23,6 @@ server.listen(PORT, () => {
 
 const io = new Server(server)
 
-export { io }
+const client = startDatabse()
+
+export { io, client }
