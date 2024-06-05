@@ -7,7 +7,7 @@ function emitEditorWrite(data) {
 }
 
 function selectDocument(name) {
-  socket.emit("document", name)
+  socket.emit("document", name, (text) => updateEditor(text))
 }
 
 socket.on("editor", (text) => {
