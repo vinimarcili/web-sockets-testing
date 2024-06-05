@@ -26,12 +26,13 @@ export default class DocumentsClient {
   }
 
   updateOne(name: string, text: string) {
-    return this.collection.updateOne({ name },
+    return this.collection.findOneAndUpdate({ name },
       {
         $set: { text, name }
       },
       {
-        upsert: true
+        upsert: true,
+        returnDocument: 'after'
       }
     )
   }

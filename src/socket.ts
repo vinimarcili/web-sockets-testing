@@ -16,8 +16,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('editor', async ({ text, name }: Document) => {
-    const doc = await documentsMongoCollection.findOne(name)
-    await documentsMongoCollection.updateOne(name, text)
+    const doc = await documentsMongoCollection.updateOne(name, text)
     if (doc) {
       doc.text = text
       socket.to(name).emit('editor', text)
