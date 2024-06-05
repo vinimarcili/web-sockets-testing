@@ -10,6 +10,11 @@ socket.on("editor", (text) => {
   updateEditor(text)
 })
 
+socket.on("disconnect", (reason) => {
+  console.log(`Server Disconnected.
+  Reason: ${reason}`)
+})
+
 export {
   socket,
   emitEditorWrite
