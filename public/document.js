@@ -1,10 +1,14 @@
-const socket = io("http://localhost:4000")
+import { emitEditorWrite } from "./socket.js"
 
 const editor = document.querySelector("#editor")
 editor.addEventListener("keyup", () => {
-  socket.emit("editor_write", editor.value)
+  emitEditorWrite(editor.value)
 })
 
-socket.on("editor_read", (data) => {
-  editor.value = data
-})
+function updateEditor(text) {
+  editor.value = text
+}
+
+export {
+  updateEditor
+}
