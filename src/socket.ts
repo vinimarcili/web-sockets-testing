@@ -35,6 +35,7 @@ io.on('connection', (socket) => {
 
   socket.on('delete-document', async (documentName: string) => {
     await documentsMongoCollection.deleteOne(documentName)
+    socket.to(documentName).emit('delete-document', documentName)
   })
 
   socket.on("disconnect", (reason) => {

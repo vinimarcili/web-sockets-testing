@@ -14,6 +14,11 @@ function emitDeleteDocument(name) {
   socket.emit("delete-document", name)
 }
 
+socket.on("delete-document", (name) => {
+  window.alert(`O documento ${name} foi deletado.`)
+  window.location.href = "/index.html"
+})
+
 socket.on("editor", (text) => {
   updateEditor(text)
 })
