@@ -29,13 +29,16 @@ io.on('connection', (socket) => {
     listDocuments(documents)
   })
 
-  socket.on('create-document', async (documentName: string, sendText: (text: string) => void) => {
+  socket.on('create-document', async (documentName: string) => {
     await documentsMongoCollection.updateOne(documentName)
+    socket.emit('create-document', documentName)
+    socket.broadcast.emit('create-document', documentName)
   })
 
   socket.on('delete-document', async (documentName: string) => {
     await documentsMongoCollection.deleteOne(documentName)
     socket.to(documentName).emit('delete-document', documentName)
+    socket.broadcast.except(documentName).emit('delete-document', documentName)
   })
 
   socket.on("disconnect", (reason) => {
