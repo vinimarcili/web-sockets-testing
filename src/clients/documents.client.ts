@@ -25,10 +25,14 @@ export default class DocumentsClient {
     return this.collection.insertOne(document)
   }
 
-  updateOne(name: string, text: string) {
+  updateOne(name: string, text?: string) {
+    const updatedFields: { name: string, text?: string } = { name }
+    if (text) {
+      updatedFields.text = text
+    }
     return this.collection.findOneAndUpdate({ name },
       {
-        $set: { text, name }
+        $set: updatedFields
       },
       {
         upsert: true,

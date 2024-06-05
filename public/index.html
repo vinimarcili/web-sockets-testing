@@ -18,22 +18,12 @@
   </header>
 
   <main class="w-75 mx-auto">
-    <div id="documents-list" class="list-group mb-4">
-      <!-- <a href="document.html?name=JavaScript" class="list-group-item list-group-item-action">
-        JavaScript
-      </a>
-      <a href="document.html?name=Node" class="list-group-item list-group-item-action">
-        Node
-      </a>
-      <a href="document.html?name=Socket.io" class="list-group-item list-group-item-action">
-        Socket.io
-      </a> -->
-    </div>
+    <div id="documents-list" class="list-group mb-4"></div>
 
     <form id="add-document" class="row g-3">
       <div class="col-md-6">
         <label class="visually-hidden" for="input-document">Nome do documento</label>
-        <input type="text" class="form-control" id="input-document" placeholder="Documento..." required>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Documento..." required>
       </div>
 
       <div class="col-md-6">

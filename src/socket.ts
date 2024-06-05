@@ -28,6 +28,10 @@ io.on('connection', (socket) => {
     listDocuments(documents)
   })
 
+  socket.on('create-document', async (documentName: string, sendText: (text: string) => void) => {
+    await documentsMongoCollection.updateOne(documentName)
+  })
+
   socket.on("disconnect", (reason) => {
     console.log(`Client "${socket.id}" disconnected!
     Reason: ${reason}`)
