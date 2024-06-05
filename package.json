@@ -2,12 +2,12 @@
   "name": "web-sockets-1-alura",
   "version": "1.0.0",
   "description": "Learning about web sockets with Alura",
-  "main": "src/server.ts",
+  "main": "src/socket.ts",
   "type": "module",
   "scripts": {
-    "start": "nodemon --exec node --loader ts-node/esm src/server.ts",
+    "start": "nodemon --exec node --loader ts-node/esm src/socket.ts",
     "build": "tsc",
-    "prod": "node dist/server.js",
+    "prod": "node dist/socket.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
