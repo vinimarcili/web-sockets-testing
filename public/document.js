@@ -10,7 +10,7 @@ selectDocument(documentName)
 const editor = document.querySelector("#editor")
 editor.addEventListener("keyup", () => {
   emitEditorWrite({
-    text: editor.value, document: documentName
+    text: editor.value, name: documentName
   })
 })
 

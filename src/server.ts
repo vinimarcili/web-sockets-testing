@@ -23,6 +23,6 @@ server.listen(PORT, () => {
 
 const io = new Server(server)
 
-const client = startDatabse()
+const client = await startDatabse()
 
 export { io, client }

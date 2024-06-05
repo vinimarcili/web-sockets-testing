@@ -1,40 +1,26 @@
+import DocumentsClient from "./clients/documents.client.js"
+import Document from "./interfaces/document.interface.js"
 import { io } from "./server.js"
 
-const documents = [
-  {
-    name: "JavaScript",
-    text: "Text 1"
-  },
-  {
-    name: "Node",
-    text: "Text 2"
-  },
-  {
-    name: "Socket.io",
-    text: "Text 3"
-  }
-]
-
-function findDocument(document: string) {
-  return documents.find((d) => d.name?.toLowerCase()?.trim() === document?.toLowerCase()?.trim())
-}
+const documentsMongoCollection = new DocumentsClient()
 
 io.on('connection', (socket) => {
   console.log('Client Connected', socket.id)
 
-  socket.on('document', (documentName, sendText) => {
+  socket.on('document', async (documentName: string, sendText: (text: string) => void) => {
     socket.join(documentName)
-    const document = findDocument(documentName)
+    const document = await documentsMongoCollection.findOne(documentName)
     if (document) {
       sendText(document.text)
     }
   })
 
-  socket.on('editor', ({ text, document }) => {
-    const doc = findDocument(document)
+  socket.on('editor', async ({ text, name }: Document) => {
+    const doc = await documentsMongoCollection.findOne(name)
+    await documentsMongoCollection.updateOne(name, text)
     if (doc) {
       doc.text = text
-      socket.to(document).emit('editor', text)
+      socket.to(name).emit('editor', text)
     }
   })
 
