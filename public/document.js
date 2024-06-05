@@ -1,8 +1,17 @@
-import { emitEditorWrite } from "./socket.js"
+import { emitEditorWrite, selectDocument } from "./socket.js"
+
+const params = new URLSearchParams(window.location.search)
+const documentName = params.get("name")
+const documentHtmlTile = document.querySelector("#document-title")
+documentHtmlTile.innerHTML = documentName || "Untitled Document"
+document.title = `Editando Documento | ${documentName || "Untitled Document"}`
+selectDocument(documentName)
 
 const editor = document.querySelector("#editor")
 editor.addEventListener("keyup", () => {
-  emitEditorWrite(editor.value)
+  emitEditorWrite({
+    text: editor.value, document: documentName
+  })
 })
 
 function updateEditor(text) {

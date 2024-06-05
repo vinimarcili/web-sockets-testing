@@ -2,8 +2,12 @@ import { updateEditor } from "./document.js"
 
 const socket = io("http://localhost:4000")
 
-function emitEditorWrite(text) {
-  socket.emit("editor", text)
+function emitEditorWrite(data) {
+  socket.emit("editor", data)
+}
+
+function selectDocument(name) {
+  socket.emit("document", name)
 }
 
 socket.on("editor", (text) => {
@@ -17,5 +21,6 @@ socket.on("disconnect", (reason) => {
 
 export {
   socket,
-  emitEditorWrite
+  emitEditorWrite,
+  selectDocument
 }
