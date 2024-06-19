@@ -1,6 +1,6 @@
-import { registerUser } from "./socket-register.js"
+import { login } from "./socket-login.js"
 
-const form = document.querySelector('#form-register')
+const form = document.querySelector('#form-login')
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault()
@@ -8,5 +8,5 @@ form.addEventListener('submit', async (e) => {
   const username = form['input-user'].value
   const password = form['input-password'].value
 
-  registerUser({ username, password })
+  login({ username, password })
 })

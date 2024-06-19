@@ -2,6 +2,7 @@ import DocumentsClient from "./clients/documents.client.js"
 import UsersClient from "./clients/users.client.js"
 import registerDocumentEvents from "./events/document-events.js"
 import registerIndexEvents from "./events/index-events.js"
+import registerLoginPageEvents from "./events/login-events.js"
 import registerRegisterPageEvents from "./events/register-events.js"
 import { io } from "./server.js"
 
@@ -16,6 +17,8 @@ io.on('connection', (socket) => {
   registerDocumentEvents(socket, documentsCollection)
 
   registerRegisterPageEvents(socket, usersCollection)
+
+  registerLoginPageEvents(socket, usersCollection)
 
   socket.on("disconnect", (reason) => {
     console.log(`Client "${socket.id}" disconnected!

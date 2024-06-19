@@ -1,6 +1,7 @@
 const socket = io()
 
-function register({ username, password }) {
+function registerUser({ username, password }) {
+  console.log(username, password)
   socket.emit('register', { username, password })
 }
 
@@ -18,5 +19,5 @@ socket.on('register-failure-exists', (data) => {
 })
 
 export {
-  register
+  registerUser
 }

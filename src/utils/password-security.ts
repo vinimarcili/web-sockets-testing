@@ -7,3 +7,11 @@ export function hashPassword(password: string) {
 
   return `${sal}:${hash}`
 }
+
+export function validatePassword(password: string, salHash: string) {
+  const [sal, hash] = salHash.split(':')
+
+  const newHash = scryptSync(password, sal, 64).toString('hex')
+
+  return newHash === hash
+}
