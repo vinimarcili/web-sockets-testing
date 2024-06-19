@@ -5,7 +5,6 @@ const documentName = params.get("name")
 const documentHtmlTile = document.querySelector("#document-title")
 documentHtmlTile.innerHTML = documentName || "Untitled Document"
 document.title = `Editando Documento | ${documentName || "Untitled Document"}`
-selectDocument(documentName)
 
 const editor = document.querySelector("#editor")
 editor.addEventListener("keyup", () => {
@@ -26,6 +25,23 @@ function updateEditor(text) {
   editor.value = text
 }
 
+function successAuth(payload) {
+  selectDocument({ name: documentName, username: payload.username })
+}
+
+function updateUsers(users) {
+  const list = document.querySelector("#users-list")
+  list.innerHTML = ""
+  users.forEach((user) => {
+    const item = document.createElement("li")
+    item.classList.add("list-group-item")
+    item.innerHTML = user
+    list.appendChild(item)
+  })
+}
+
 export {
-  updateEditor
+  updateEditor,
+  successAuth,
+  updateUsers
 }

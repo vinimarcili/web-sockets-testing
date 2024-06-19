@@ -19,7 +19,7 @@ nspUsers.on('connection', (socket) => {
 
   registerIndexEvents(socket, documentsCollection)
 
-  registerDocumentEvents(socket, documentsCollection)
+  registerDocumentEvents(socket, documentsCollection, nspUsers)
 
   socket.on("disconnect", (reason) => {
     console.log(`Client "${socket.id}" disconnected!

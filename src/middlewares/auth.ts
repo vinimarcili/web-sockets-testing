@@ -9,7 +9,10 @@ export default function authMiddleware(socket: Socket, next: (err?: ExtendedErro
     if (!process.env.JWT_SECRET) {
       throw new Error("JWT_SECRET not found")
     }
-    jwt.verify(token, process.env.JWT_SECRET)
+    const payload = jwt.verify(token, process.env.JWT_SECRET)
+
+    socket.emit("authenticated", payload)
+
     next()
   } catch (err) {
     return next(new Error("Invalid token"))
