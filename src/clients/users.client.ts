@@ -1,12 +1,20 @@
 import { Collection } from "mongodb"
 import { client } from "../server.js"
 import User from "../interfaces/user.interface.js"
+import { hashPassword } from "../utils/password-security.js"
 
 export default class UsersClient {
   collection: Collection<User>
 
   constructor() {
     this.collection = client.db("socket").collection("users")
+  }
+
+  private setPassword(user: User) {
+    if (user.password) {
+      user.password = hashPassword(user.password)
+    }
+    return user
   }
 
   findAll() {
@@ -22,10 +30,14 @@ export default class UsersClient {
   }
 
   insertOne(user: User) {
+    user = this.setPassword(user)
+
     return this.collection.insertOne(user)
   }
 
   updateOne(_id: string, user: User) {
+    user = this.setPassword(user)
+
     return this.collection.findOneAndUpdate({ _id },
       {
         $set: {
