@@ -1,6 +1,10 @@
 import { updateEditor } from "./document.js"
 
-const socket = io("http://localhost:4000")
+const socket = io("http://localhost:4000/users", {
+  auth: {
+    token: localStorage.getItem("token")
+  }
+})
 
 function emitEditorWrite(data) {
   socket.emit("editor", data)
@@ -21,6 +25,11 @@ socket.on("delete-document", (name) => {
 
 socket.on("editor", (text) => {
   updateEditor(text)
+})
+
+socket.on("connect_error", (error) => {
+  console.error("Connection error", error)
+  window.location.href = "/login/login.html"
 })
 
 socket.on("disconnect", (reason) => {
