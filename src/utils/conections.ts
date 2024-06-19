@@ -9,6 +9,7 @@ export function removeUserDocumentConnection({ name, username }: { name: string,
   if (index !== -1) {
     documentsConnections.splice(index, 1)
   }
+  return documentsConnections
 }
 
 export function getDocumentsUsers(name: string) {

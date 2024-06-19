@@ -28,9 +28,8 @@ export default function registerDocumentEvents(socket: Socket, dbClient: Documen
     })
 
     socket.on('disconnect', () => {
-      removeUserDocumentConnection({ name, username })
-      const documentUsers = getDocumentsUsers(name)
-      io.to(name).emit('users', documentUsers)
+      const documentUsers = removeUserDocumentConnection({ name, username })
+      io.to(name).emit('users', documentUsers ?? [])
     })
   })
 }
