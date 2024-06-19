@@ -9,6 +9,14 @@ export default function registerDocumentEvents(socket: Socket, dbClient: Documen
     if (!document) {
       await dbClient.updateOne(name)
     }
+
+    const userConnected = getDocumentsUsers(name).find(u => u === username)
+
+    if (userConnected) {
+      socket.emit('user_alredy')
+      return
+    }
+
     socket.join(name)
 
     addDocumentConection({ name, username })

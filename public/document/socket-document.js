@@ -39,6 +39,11 @@ socket.on("disconnect", (reason) => {
   Reason: ${reason}`)
 })
 
+socket.on("user_alredy", () => {
+  alert("Document already open in another tab.")
+  window.location.href = "/index.html"
+})
+
 socket.on("authenticated", successAuth)
 
 export {
