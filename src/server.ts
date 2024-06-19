@@ -3,7 +3,7 @@ import * as path from 'path'
 import { fileURLToPath } from 'url'
 import http from 'http'
 import { Server } from 'socket.io'
-import { startDatabse } from './db.js'
+import { startDatabse } from './db/db.js'
 import dotnev from 'dotenv'
 dotnev.config()
 
