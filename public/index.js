@@ -1,5 +1,10 @@
 import { listDocuments, createDocument } from "./socket-list.js"
 
+document.getElementById("logout").addEventListener("click", (e) => {
+  localStorage.removeItem("token")
+  window.location.href = "/login/login.html"
+})
+
 function updateList(documents) {
   const list = document.querySelector("#documents-list")
   list.innerHTML = ""
