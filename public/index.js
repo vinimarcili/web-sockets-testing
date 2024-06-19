@@ -25,7 +25,7 @@ function addDocumentToList(name) {
 
 function createDocumentLink(name) {
   const listItem = document.createElement("a")
-  listItem.href = `/document.html?name=${name}`
+  listItem.href = `/document/document.html?name=${name}`
   listItem.classList = 'list-group-item list-group-item-action'
   listItem.innerHTML = name
   return listItem
@@ -38,7 +38,7 @@ document.getElementById("add-document").addEventListener("submit", (e) => {
   const name = e.target.name.value
   createDocument(name)
   e.target.reset()
-  const newUrl = new URL('/document.html', window.location.origin)
+  const newUrl = new URL('/document/document.html', window.location.origin)
   newUrl.searchParams.set("name", name)
   window.location.href = newUrl
 })
