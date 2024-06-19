@@ -21,7 +21,11 @@ server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
 
-const io = new Server(server)
+const io = new Server(server, {
+  cors: {
+    origin: '*'
+  }
+})
 
 const client = await startDatabse()
 
