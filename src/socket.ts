@@ -1,16 +1,21 @@
 import DocumentsClient from "./clients/documents.client.js"
+import UsersClient from "./clients/users.client.js"
 import registerDocumentEvents from "./events/document-events.js"
 import registerIndexEvents from "./events/index-events.js"
+import registerRegisterPageEvents from "./events/register-events.js"
 import { io } from "./server.js"
 
-const documentsMongoCollection = new DocumentsClient()
+const documentsCollection = new DocumentsClient()
+const usersCollection = new UsersClient()
 
 io.on('connection', (socket) => {
   console.log('Client Connected', socket.id)
 
-  registerIndexEvents(socket, documentsMongoCollection)
+  registerIndexEvents(socket, documentsCollection)
 
-  registerDocumentEvents(socket, documentsMongoCollection)
+  registerDocumentEvents(socket, documentsCollection)
+
+  registerRegisterPageEvents(socket, usersCollection)
 
   socket.on("disconnect", (reason) => {
     console.log(`Client "${socket.id}" disconnected!
